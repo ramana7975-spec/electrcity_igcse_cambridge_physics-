@@ -1,0 +1,23 @@
+name: Test Electricity Learning Hub
+
+on:
+  push:
+    branches: [ main, work ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run content checks
+        run: |
+          python scripts/test_app.py
