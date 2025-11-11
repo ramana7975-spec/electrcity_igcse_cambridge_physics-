@@ -1,0 +1,2145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IGCSE Physics - Electricity Interactive Learning Hub</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .nav-tabs {
+            display: flex;
+            background: #f8f9fa;
+            padding: 0;
+            overflow-x: auto;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            font-size: 1em;
+            font-weight: 600;
+            color: #555;
+            transition: all 0.3s;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .nav-tab:hover {
+            background: #e9ecef;
+            color: #667eea;
+        }
+
+        .nav-tab.active {
+            background: white;
+            color: #667eea;
+        }
+
+        .nav-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #667eea;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #2a5298;
+            margin-bottom: 20px;
+            border-left: 5px solid #667eea;
+            padding-left: 15px;
+        }
+
+        .card {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .formula-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            font-size: 1.4em;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .formula-explanation {
+            background: white;
+            color: #1e3c72;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.9em;
+            font-weight: normal;
+            text-align: left;
+            line-height: 1.8;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        .formula-explanation strong {
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        .calculator {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #667eea;
+            margin-top: 20px;
+        }
+
+        .input-group {
+            margin: 18px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #555;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        .input-group input, .input-group select {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1.05em;
+            transition: border-color 0.3s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 14px 35px;
+            border-radius: 8px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+            box-shadow: 0 5px 15px rgba(108, 117, 125, 0.4);
+        }
+
+        .result {
+            background: #d4edda;
+            border: 2px solid #28a745;
+            color: #155724;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 1.15em;
+            font-weight: 600;
+            display: none;
+            animation: slideIn 0.5s;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .result.show {
+            display: block;
+        }
+
+        .info-box {
+            background: #e7f3ff;
+            border-left: 5px solid #2196F3;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            line-height: 1.8;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            line-height: 1.8;
+        }
+
+        .danger-box {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+            line-height: 1.8;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin: 25px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            padding: 16px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            font-weight: 600;
+            font-size: 1.05em;
+        }
+
+        tr:hover {
+            background: #f8f9fa;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .circuit-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 25px 0;
+        }
+
+        .circuit-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .circuit-card h3 {
+            color: #667eea;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+        }
+
+        .circuit-property {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 4px solid #667eea;
+        }
+
+        .circuit-property h4 {
+            color: #2a5298;
+            font-size: 1.3em;
+            margin-bottom: 12px;
+        }
+
+        .circuit-formula {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .circuit-formula sub {
+            font-size: 0.7em;
+        }
+
+        .power-visualizer {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border: 3px solid #667eea;
+            margin: 25px 0;
+        }
+
+        .visualizer-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .visualizer-display {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 25px;
+        }
+
+        .display-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .display-item {
+            background: rgba(255,255,255,0.15);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: transform 0.3s;
+        }
+
+        .display-item:hover {
+            transform: scale(1.05);
+            background: rgba(255,255,255,0.25);
+        }
+
+        .display-item h4 {
+            font-size: 0.95em;
+            margin-bottom: 10px;
+            opacity: 0.9;
+            font-weight: 500;
+        }
+
+        .display-value-large {
+            font-size: 2.2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .display-note {
+            font-size: 0.85em;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #667eea;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .display-value {
+            font-size: 1.6em;
+            color: #667eea;
+            font-weight: bold;
+            text-align: center;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 35px;
+            background: #e9ecef;
+            border-radius: 17px;
+            overflow: hidden;
+            margin: 25px 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 2px solid #e9ecef;
+            padding: 15px 20px;
+            margin: 12px 0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.05em;
+        }
+
+        .quiz-option:hover {
+            background: #f8f9fa;
+            border-color: #667eea;
+            transform: translateX(8px);
+        }
+
+        .quiz-option.correct {
+            background: #d4edda;
+            border-color: #28a745;
+        }
+
+        .quiz-option.incorrect {
+            background: #f8d7da;
+            border-color: #dc3545;
+        }
+
+        .quiz-option.selected {
+            background: #e7f3ff;
+            border-color: #667eea;
+        }
+
+        .component-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .component-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #e9ecef;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .component-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+
+        .component-icon {
+            font-size: 3em;
+            margin-bottom: 15px;
+        }
+
+        .component-card strong {
+            color: #2a5298;
+            font-size: 1.1em;
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.8em;
+            }
+            
+            .nav-tab {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .section-title {
+                font-size: 1.5em;
+            }
+
+            .circuit-comparison {
+                grid-template-columns: 1fr;
+            }
+
+            .visualizer-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .display-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .interactive-demo {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #667eea;
+            margin: 25px 0;
+        }
+
+        .bulb {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: #ccc;
+            margin: 25px auto;
+            transition: all 0.3s;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+
+        .bulb.on {
+            background: #ffeb3b;
+            box-shadow: 0 0 50px #ffeb3b, 0 0 80px #ffeb3b;
+        }
+
+        .switch-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            border-radius: 12px;
+            font-size: 1.2em;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 25px auto;
+            font-weight: 600;
+        }
+
+        .switch-btn.on {
+            background: #28a745;
+        }
+
+        .switch-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ IGCSE Physics: Electricity Interactive Hub</h1>
+            <p>Master electrical concepts through interactive learning!</p>
+        </header>
+
+        <div class="nav-tabs">
+            <button class="nav-tab active" onclick="openTab('overview')">📚 Overview</button>
+            <button class="nav-tab" onclick="openTab('quantities')">⚡ Quantities</button>
+            <button class="nav-tab" onclick="openTab('circuits')">🔌 Circuits</button>
+            <button class="nav-tab" onclick="openTab('calculator')">🧮 Calculator</button>
+            <button class="nav-tab" onclick="openTab('power')">💡 Power & Energy</button>
+            <button class="nav-tab" onclick="openTab('components')">🔧 Components</button>
+            <button class="nav-tab" onclick="openTab('safety')">⚠️ Safety</button>
+            <button class="nav-tab" onclick="openTab('quiz')">🎯 Quiz</button>
+        </div>
+
+        <div class="content">
+            <div id="overview" class="tab-content active">
+                <h2 class="section-title">Welcome to Electricity Learning Hub!</h2>
+                
+                <div class="card">
+                    <h3>🎓 What You'll Learn</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;">This interactive app covers all essential electricity topics from the IGCSE Cambridge Physics syllabus:</p>
+                    <ul style="margin-top: 20px; line-height: 2.2; font-size: 1.05em;">
+                        <li>⚡ <strong>Electrical Quantities:</strong> Current, Voltage, Charge, Resistance</li>
+                        <li>🔌 <strong>Electric Circuits:</strong> Series and Parallel configurations</li>
+                        <li>📊 <strong>Ohm's Law:</strong> Relationship between V, I, and R</li>
+                        <li>💡 <strong>Power & Energy:</strong> Electrical power and energy calculations</li>
+                        <li>🔧 <strong>Components:</strong> Resistors, Diodes, LEDs, LDR, Thermistors</li>
+                        <li>⚠️ <strong>Safety:</strong> Electrical hazards and protection</li>
+                    </ul>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>📋 Essential Formulas</h3>
+                        <div class="formula-box">
+                            Q = I × t
+                            <div class="formula-explanation">
+                                <strong>Q</strong> = Charge (Coulombs, C)<br>
+                                <strong>I</strong> = Current (Amperes, A)<br>
+                                <strong>t</strong> = Time (seconds, s)
+                            </div>
+                        </div>
+                        <div class="formula-box">
+                            V = I × R
+                            <div class="formula-explanation">
+                                <strong>V</strong> = Voltage/Potential Difference (Volts, V)<br>
+                                <strong>I</strong> = Current (Amperes, A)<br>
+                                <strong>R</strong> = Resistance (Ohms, Ω)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>🎯 Learning Features</h3>
+                        <ul style="line-height: 2.2; font-size: 1.05em;">
+                            <li>✅ Interactive calculators with step-by-step solutions</li>
+                            <li>✅ Live circuit simulations and visualizations</li>
+                            <li>✅ Visual demonstrations with sliders</li>
+                            <li>✅ Comprehensive practice quizzes</li>
+                            <li>✅ Detailed formula explanations</li>
+                            <li>✅ Real-world examples and applications</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <strong style="font-size: 1.2em;">💡 Pro Tip:</strong> 
+                    <p style="margin-top: 10px; font-size: 1.05em;">Use the navigation tabs above to explore different topics. Each section includes interactive tools to help you understand the concepts better!</p>
+                </div>
+            </div>
+
+            <div id="quantities" class="tab-content">
+                <h2 class="section-title">⚡ Electrical Quantities</h2>
+
+                <div class="card">
+                    <h3>Electric Current (I)</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;"><strong>Definition:</strong> The rate of flow of electric charge.</p>
+                    <div class="formula-box">
+                        I = Q / t
+                        <div class="formula-explanation">
+                            <strong>I</strong> = Current (Amperes, A)<br>
+                            <strong>Q</strong> = Charge (Coulombs, C)<br>
+                            <strong>t</strong> = Time (seconds, s)
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <strong>Key Points:</strong>
+                        <ul style="line-height: 2;">
+                            <li>1 Ampere (A) = 1 Coulomb per second (C/s)</li>
+                            <li>Measured using an <strong>ammeter</strong> (connected in series)</li>
+                            <li>Conventional current flows from positive (+) to negative (−)</li>
+                            <li>Electron flow is opposite to conventional current</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Electric Charge (Q)</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;"><strong>Definition:</strong> The amount of electricity transported by a current.</p>
+                    <div class="formula-box">
+                        Q = I × t
+                        <div class="formula-explanation">
+                            <strong>Q</strong> = Charge (Coulombs, C)<br>
+                            <strong>I</strong> = Current (Amperes, A)<br>
+                            <strong>t</strong> = Time (seconds, s)
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <strong>Key Points:</strong>
+                        <ul style="line-height: 2;">
+                            <li>Charge on one electron: e = −1.6 × 10⁻¹⁹ C</li>
+                            <li>Like charges repel, unlike charges attract</li>
+                            <li>Charge is conserved in all processes</li>
+                            <li>Positive charges: protons (+), Negative charges: electrons (−)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Potential Difference / Voltage (V)</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;"><strong>Definition:</strong> The work done per unit charge.</p>
+                    <div class="formula-box">
+                        V = W / Q
+                        <div class="formula-explanation">
+                            <strong>V</strong> = Voltage/Potential Difference (Volts, V)<br>
+                            <strong>W</strong> = Work Done/Energy (Joules, J)<br>
+                            <strong>Q</strong> = Charge (Coulombs, C)
+                        </div>
+                    </div>
+                    <div class="formula-box" style="margin-top: 20px;">
+                        V = I × R
+                        <div class="formula-explanation">
+                            <strong>V</strong> = Voltage (Volts, V)<br>
+                            <strong>I</strong> = Current (Amperes, A)<br>
+                            <strong>R</strong> = Resistance (Ohms, Ω)
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <strong>Key Points:</strong>
+                        <ul style="line-height: 2;">
+                            <li>1 Volt (V) = 1 Joule per Coulomb (J/C)</li>
+                            <li>Measured using a <strong>voltmeter</strong> (connected in parallel)</li>
+                            <li>E.M.F. (Electromotive Force) is the voltage provided by a source</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Resistance (R)</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;"><strong>Definition:</strong> The opposition to current flow.</p>
+                    <div class="formula-box">
+                        R = V / I
+                        <div class="formula-explanation">
+                            <strong>R</strong> = Resistance (Ohms, Ω)<br>
+                            <strong>V</strong> = Voltage (Volts, V)<br>
+                            <strong>I</strong> = Current (Amperes, A)
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <strong>Factors Affecting Resistance:</strong>
+                        <ul style="line-height: 2;">
+                            <li>📏 <strong>Length:</strong> R ∝ length (longer wire = more resistance)</li>
+                            <li>📐 <strong>Cross-sectional area:</strong> R ∝ 1/area (thicker wire = less resistance)</li>
+                            <li>🌡️ <strong>Temperature:</strong> In metals, higher temperature = higher resistance</li>
+                            <li>⚗️ <strong>Material:</strong> Different materials have different resistivity</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="circuits" class="tab-content">
+                <h2 class="section-title">🔌 Electric Circuits</h2>
+
+                <div class="circuit-comparison">
+                    <div class="circuit-card">
+                        <h3>Series Circuits</h3>
+                        
+                        <div class="circuit-property">
+                            <h4>⚡ Current</h4>
+                            <p style="font-size: 1.1em; line-height: 1.8;">Same throughout the circuit</p>
+                            <div class="circuit-formula">
+                                I = I<sub>1</sub> = I<sub>2</sub> = I<sub>3</sub>
+                            </div>
+                            <p style="margin-top: 10px; color: #666;">Current has only one path to flow</p>
+                        </div>
+
+                        <div class="circuit-property">
+                            <h4>🔋 Voltage</h4>
+                            <p style="font-size: 1.1em; line-height: 1.8;">Divided across components</p>
+                            <div class="circuit-formula">
+                                V<sub>total</sub> = V<sub>1</sub> + V<sub>2</sub> + V<sub>3</sub>
+                            </div>
+                            <p style="margin-top: 10px; color: #666;">Total voltage = sum of individual voltages</p>
+                        </div>
+
+                        <div class="circuit-property">
+                            <h4>⚙️ Resistance</h4>
+                            <p style="font-size: 1.1em; line-height: 1.8;">Resistances add up</p>
+                            <div class="circuit-formula">
+                                R<sub>total</sub> = R<sub>1</sub> + R<sub>2</sub> + R<sub>3</sub>
+                            </div>
+                            <p style="margin-top: 10px; color: #666;"><strong>Example:</strong> 10Ω + 20Ω + 30Ω = 60Ω</p>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 20px;">
+                            <strong>Important:</strong> If one component fails, the entire circuit stops working!
+                        </div>
+                    </div>
+
+                    <div class="circuit-card">
+                        <h3>Parallel Circuits</h3>
+                        
+                        <div class="circuit-property">
+                            <h4>⚡ Current</h4>
+                            <p style="font-size: 1.1em; line-height: 1.8;">Divides across branches</p>
+                            <div class="circuit-formula">
+                                I<sub>total</sub> = I<sub>1</sub> + I<sub>2</sub> + I<sub>3</sub>
+                            </div>
+                            <p style="margin-top: 10px; color: #666;">Current splits at junctions</p>
+                        </div>
+
+                        <div class="circuit-property">
+                            <h4>🔋 Voltage</h4>
+                            <p style="font-size: 1.1em; line-height: 1.8;">Same across all branches</p>
+                            <div class="circuit-formula">
+                                V = V<sub>1</sub> = V<sub>2</sub> = V<sub>3</sub>
+                            </div>
+                            <p style="margin-top: 10px; color: #666;">All components get full supply voltage</p>
+                        </div>
+
+                        <div class="circuit-property">
+                            <h4>⚙️ Resistance</h4>
+                            <p style="font-size: 1.1em; line-height: 1.8;">Total resistance decreases</p>
+                            <div class="circuit-formula">
+                                1/R<sub>total</sub> = 1/R<sub>1</sub> + 1/R<sub>2</sub> + 1/R<sub>3</sub>
+                            </div>
+                            <p style="margin-top: 15px; font-weight: 600;">For two resistors only:</p>
+                            <div class="circuit-formula" style="margin-top: 10px;">
+                                R<sub>total</sub> = (R<sub>1</sub> × R<sub>2</sub>) / (R<sub>1</sub> + R<sub>2</sub>)
+                            </div>
+                        </div>
+
+                        <div class="info-box" style="margin-top: 20px;">
+                            <strong>Important:</strong> If one component fails, other branches continue to work!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Interactive: Light Bulb Circuit</h3>
+                    <div class="interactive-demo">
+                        <p style="text-align: center; margin-bottom: 20px; font-size: 1.2em;"><strong>Click the switch to turn the light ON/OFF</strong></p>
+                        <div class="bulb" id="bulb"></div>
+                        <button class="switch-btn" id="switchBtn" onclick="toggleLight()">OFF</button>
+                        <div style="text-align: center; margin-top: 25px; font-size: 1.1em;">
+                            <p style="margin: 10px 0;"><strong>Circuit Status:</strong> <span id="circuitStatus" style="color: #dc3545;">Open</span></p>
+                            <p style="margin: 10px 0;"><strong>Current Flowing:</strong> <span id="currentStatus" style="color: #dc3545;">No</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Potential Divider</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;">A potential divider is a circuit that divides voltage proportionally across resistors in series.</p>
+                    <div class="formula-box">
+                        V<sub>out</sub> = V<sub>in</sub> × (R<sub>2</sub> / (R<sub>1</sub> + R<sub>2</sub>))
+                        <div class="formula-explanation">
+                            <strong>V<sub>out</sub></strong> = Output voltage (Volts, V)<br>
+                            <strong>V<sub>in</sub></strong> = Input voltage (Volts, V)<br>
+                            <strong>R<sub>1</sub>, R<sub>2</sub></strong> = Resistances (Ohms, Ω)
+                        </div>
+                    </div>
+                    <div class="info-box">
+                        <strong>Applications:</strong>
+                        <ul style="line-height: 2;">
+                            <li>🎚️ Volume controls in audio equipment</li>
+                            <li>💡 Light sensors (with LDR)</li>
+                            <li>🌡️ Temperature sensors (with thermistor)</li>
+                            <li>⚙️ Controlling voltage to components</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="calculator" class="tab-content">
+                <h2 class="section-title">🧮 Electrical Calculator</h2>
+
+                <div class="card">
+                    <h3>Multi-Purpose Calculator</h3>
+                    <p style="font-size: 1.05em; margin-bottom: 15px;">Select a calculation type and enter the values:</p>
+                    <div class="calculator">
+                        <div class="input-group">
+                            <label>Choose Calculation Type:</label>
+                            <select id="calcType" onchange="updateCalculator()">
+                                <option value="current">Calculate Current (I = Q / t)</option>
+                                <option value="charge">Calculate Charge (Q = I × t)</option>
+                                <option value="voltage">Calculate Voltage (V = I × R)</option>
+                                <option value="resistance">Calculate Resistance (R = V / I)</option>
+                                <option value="power1">Calculate Power (P = I × V)</option>
+                                <option value="power2">Calculate Power (P = I² × R)</option>
+                                <option value="power3">Calculate Power (P = V² / R)</option>
+                                <option value="energy">Calculate Energy (E = P × t)</option>
+                            </select>
+                        </div>
+
+                        <div id="calculatorInputs"></div>
+
+                        <div style="margin-top: 20px;">
+                            <button class="btn" onclick="performCalculation()">Calculate</button>
+                            <button class="btn btn-secondary" onclick="clearCalculation()">Clear</button>
+                        </div>
+
+                        <div id="calculationResult" class="result"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Series and Parallel Circuits Calculator</h3>
+                    <div class="calculator">
+                        <div class="input-group">
+                            <label>Circuit Type:</label>
+                            <select id="circuitType">
+                                <option value="series">Series Circuit</option>
+                                <option value="parallel">Parallel Circuit</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Number of Resistors (2-5):</label>
+                            <input type="number" id="numResistors" min="2" max="5" value="2" onchange="createResistorInputs()">
+                        </div>
+
+                        <div id="resistorInputs"></div>
+
+                        <button class="btn" onclick="calculateCircuit()">Calculate Total Resistance</button>
+
+                        <div id="circuitResult" class="result"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="power" class="tab-content">
+                <h2 class="section-title">💡 Power & Energy</h2>
+
+                <div class="card">
+                    <h3>Electrical Power</h3>
+                    <p style="font-size: 1.1em; line-height: 1.8;"><strong>Definition:</strong> The rate at which electrical energy is transferred.</p>
+                    
+                    <div class="formula-box">
+                        P = W / t
+                        <div class="formula-explanation">
+                            <strong>P</strong> = Power (Watts, W)<br>
+                            <strong>W</strong> = Work Done/Energy (Joules, J)<br>
+                            <strong>t</strong> = Time (seconds, s)
+                        </div>
+                    </div>
+
+                    <div class="formula-box">
+                        P = I × V
+                        <div class="formula-explanation">
+                            <strong>P</strong> = Power (Watts, W)<br>
+                            <strong>I</strong> = Current (Amperes, A)<br>
+                            <strong>V</strong> = Voltage (Volts, V)
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="margin-top: 20px;">
+                        <div class="formula-box">
+                            P = I² × R
+                            <div class="formula-explanation">
+                                <strong>P</strong> = Power (Watts, W)<br>
+                                <strong>I</strong> = Current (Amperes, A)<br>
+                                <strong>R</strong> = Resistance (Ohms, Ω)
+                            </div>
+                        </div>
+
+                        <div class="formula-box">
+                            P = V² / R
+                            <div class="formula-explanation">
+                                <strong>P</strong> = Power (Watts, W)<br>
+                                <strong>V</strong> = Voltage (Volts, V)<br>
+                                <strong>R</strong> = Resistance (Ohms, Ω)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Electrical Energy</h3>
+                    <div class="formula-box">
+                        E = P × t
+                        <div class="formula-explanation">
+                            <strong>E</strong> = Energy (Joules, J)<br>
+                            <strong>P</strong> = Power (Watts, W)<br>
+                            <strong>t</strong> = Time (seconds, s)
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <strong>Energy Unit Conversion:</strong>
+                        <div class="formula-box" style="margin-top: 15px;">
+                            1 kWh = 3.6 × 10⁶ J = 3.6 MJ
+                            <div class="formula-explanation">
+                                <strong>kWh</strong> = kilowatt-hour (unit of energy)<br>
+                                <strong>J</strong> = Joules<br>
+                                <strong>MJ</strong> = Megajoules (1 million Joules)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>⚡ Enhanced Power Consumption Visualizer</h3>
+                    <div class="power-visualizer">
+                        <div class="visualizer-controls">
+                            <div class="input-group">
+                                <label>Select Appliance:</label>
+                                <select id="applianceSelect" onchange="updatePowerViz()">
+                                    <option value="10">LED Bulb (10W)</option>
+                                    <option value="75">Laptop (75W)</option>
+                                    <option value="150">Refrigerator (150W)</option>
+                                    <option value="1000">Microwave (1000W)</option>
+                                    <option value="2000">Electric Kettle (2000W)</option>
+                                    <option value="3000">Electric Heater (3000W)</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label>Hours of Use per Day:</label>
+                                <input type="range" min="1" max="24" value="5" class="slider" id="hoursSlider" oninput="updatePowerViz()">
+                                <div class="display-value" id="hoursDisplay">5 hours</div>
+                            </div>
+                        </div>
+
+                        <div class="visualizer-display">
+                            <h3 style="text-align: center; font-size: 1.8em; margin-bottom: 20px;">📊 Energy & Cost Analysis</h3>
+                            
+                            <div class="display-grid">
+                                <div class="display-item">
+                                    <h4>⚡ Energy Used (Per Usage)</h4>
+                                    <div class="display-value-large" id="energyUsed">0.05 kWh</div>
+                                    <div class="display-note" id="energyJoules">180,000 J</div>
+                                </div>
+
+                                <div class="display-item">
+                                    <h4>💷 Cost (Per Usage)</h4>
+                                    <div class="display-value-large" id="energyCostDisplay">£0.0075</div>
+                                    <div class="display-note">at £0.15 per kWh</div>
+                                </div>
+
+                                <div class="display-item">
+                                    <h4>📅 Daily Cost</h4>
+                                    <div class="display-value-large" id="dailyCost">£0.036</div>
+                                    <div class="display-note" id="dailyEnergy">0.24 kWh/day</div>
+                                </div>
+
+                                <div class="display-item">
+                                    <h4>📆 Monthly Cost</h4>
+                                    <div class="display-value-large" id="monthlyCost">£1.08</div>
+                                    <div class="display-note" id="monthlyEnergy">7.2 kWh/month</div>
+                                </div>
+
+                                <div class="display-item">
+                                    <h4>💰 Yearly Cost</h4>
+                                    <div class="display-value-large" id="yearlyCost">£13.14</div>
+                                    <div class="display-note" id="yearlyEnergy">87.6 kWh/year</div>
+                                </div>
+
+                                <div class="display-item">
+                                    <h4>🌍 CO₂ Emissions</h4>
+                                    <div class="display-value-large" id="co2Emissions">38 kg</div>
+                                    <div class="display-note">per year (approx)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>Common Appliances</h3>
+                        <table>
+                            <tr>
+                                <th>Appliance</th>
+                                <th>Power</th>
+                                <th>Typical Usage</th>
+                            </tr>
+                            <tr>
+                                <td>LED Bulb</td>
+                                <td>10 W</td>
+                                <td>5 hours/day</td>
+                            </tr>
+                            <tr>
+                                <td>Laptop</td>
+                                <td>75 W</td>
+                                <td>6 hours/day</td>
+                            </tr>
+                            <tr>
+                                <td>Refrigerator</td>
+                                <td>150 W</td>
+                                <td>24 hours/day</td>
+                            </tr>
+                            <tr>
+                                <td>Microwave</td>
+                                <td>1000 W</td>
+                                <td>15 min/day</td>
+                            </tr>
+                            <tr>
+                                <td>Kettle</td>
+                                <td>2000 W</td>
+                                <td>10 min/day</td>
+                            </tr>
+                            <tr>
+                                <td>Heater</td>
+                                <td>3000 W</td>
+                                <td>3 hours/day</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="card">
+                        <h3>💚 Energy Saving Tips</h3>
+                        <ul style="line-height: 2.2; font-size: 1.05em;">
+                            <li>💡 Use LED bulbs (80% less energy)</li>
+                            <li>🔌 Unplug devices when not in use</li>
+                            <li>❄️ Set fridge to 3-5°C</li>
+                            <li>🧺 Wash clothes at 30°C</li>
+                            <li>🏠 Improve home insulation</li>
+                            <li>⚙️ Use A+++ rated appliances</li>
+                            <li>🌞 Maximize natural daylight</li>
+                            <li>🌡️ Use smart thermostats</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="components" class="tab-content">
+                <h2 class="section-title">🔧 Electrical Components</h2>
+
+                <div class="card">
+                    <h3>Click on components to learn more:</h3>
+                    <div class="component-grid">
+                        <div class="component-card" onclick="showComponentInfo('resistor')">
+                            <div class="component-icon">📶</div>
+                            <strong>Fixed Resistor</strong>
+                        </div>
+                        <div class="component-card" onclick="showComponentInfo('variable')">
+                            <div class="component-icon">🎚️</div>
+                            <strong>Variable Resistor</strong>
+                        </div>
+                        <div class="component-card" onclick="showComponentInfo('thermistor')">
+                            <div class="component-icon">🌡️</div>
+                            <strong>Thermistor</strong>
+                        </div>
+                        <div class="component-card" onclick="showComponentInfo('ldr')">
+                            <div class="component-icon">💡</div>
+                            <strong>LDR</strong>
+                        </div>
+                        <div class="component-card" onclick="showComponentInfo('diode')">
+                            <div class="component-icon">▶️</div>
+                            <strong>Diode</strong>
+                        </div>
+                        <div class="component-card" onclick="showComponentInfo('led')">
+                            <div class="component-icon">💡</div>
+                            <strong>LED</strong>
+                        </div>
+                    </div>
+
+                    <div id="componentInfo" class="result"></div>
+                </div>
+
+                <div class="card">
+                    <h3>Interactive Component Demonstrations</h3>
+                    
+                    <div class="interactive-demo">
+                        <h4 style="color: #667eea; margin-bottom: 15px;">🌡️ Thermistor (NTC)</h4>
+                        <p style="margin-bottom: 15px;">Resistance <strong>decreases</strong> as temperature <strong>increases</strong></p>
+                        <input type="range" min="0" max="100" value="25" class="slider" id="tempSlider" oninput="updateThermistor()">
+                        <div class="display-value" id="tempDisplay">Temperature: 25°C</div>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <p style="font-size: 1.3em;"><strong>Resistance:</strong> <span id="thermistorRes" style="color: #667eea;">1000 Ω</span></p>
+                        </div>
+                    </div>
+
+                    <div class="interactive-demo" style="margin-top: 25px;">
+                        <h4 style="color: #667eea; margin-bottom: 15px;">💡 Light Dependent Resistor (LDR)</h4>
+                        <p style="margin-bottom: 15px;">Resistance <strong>decreases</strong> as light intensity <strong>increases</strong></p>
+                        <input type="range" min="0" max="100" value="50" class="slider" id="lightSlider" oninput="updateLDR()">
+                        <div class="display-value" id="lightDisplay">Light Intensity: 50%</div>
+                        <div style="text-align: center; margin-top: 15px;">
+                            <p style="font-size: 1.3em;"><strong>Resistance:</strong> <span id="ldrRes" style="color: #667eea;">5000 Ω</span></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>Component Characteristics Table</h3>
+                    <table>
+                        <tr>
+                            <th>Component</th>
+                            <th>Type</th>
+                            <th>Behavior</th>
+                            <th>Uses</th>
+                        </tr>
+                        <tr>
+                            <td>Metal Wire</td>
+                            <td>Ohmic</td>
+                            <td>Constant resistance (at constant temp)</td>
+                            <td>Connecting components</td>
+                        </tr>
+                        <tr>
+                            <td>Filament Lamp</td>
+                            <td>Non-Ohmic</td>
+                            <td>Resistance increases with temp</td>
+                            <td>Lighting</td>
+                        </tr>
+                        <tr>
+                            <td>Diode</td>
+                            <td>Non-Ohmic</td>
+                            <td>Current flows one direction only</td>
+                            <td>Rectification, protection</td>
+                        </tr>
+                        <tr>
+                            <td>Thermistor</td>
+                            <td>Non-Ohmic</td>
+                            <td>Resistance decreases with temp</td>
+                            <td>Temperature sensors</td>
+                        </tr>
+                        <tr>
+                            <td>LDR</td>
+                            <td>Non-Ohmic</td>
+                            <td>Resistance decreases with light</td>
+                            <td>Light sensors, auto lights</td>
+                        </tr>
+                        <tr>
+                            <td>LED</td>
+                            <td>Non-Ohmic</td>
+                            <td>Emits light when forward-biased</td>
+                            <td>Indicators, displays, lighting</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div id="safety" class="tab-content">
+                <h2 class="section-title">⚠️ Electrical Safety</h2>
+
+                <div class="danger-box">
+                    <h3 style="font-size: 1.5em; margin-bottom: 15px;">⚡ DANGER: Electricity Can Kill!</h3>
+                    <p style="font-size: 1.1em;">Electric shock can cause severe injury or death. Always treat electricity with respect!</p>
+                </div>
+
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🚨 Dangers of Electricity</h3>
+                        <div class="danger-box">
+                            <strong style="font-size: 1.2em;">⚡ Electric Shock</strong>
+                            <ul style="margin-top: 15px; line-height: 2;">
+                                <li>Can cause severe burns</li>
+                                <li>Muscle contractions and loss of control</li>
+                                <li>May stop heart or breathing</li>
+                                <li><strong>Dry skin:</strong> ~10,000 Ω resistance</li>
+                                <li><strong>Wet skin:</strong> ~1,000 Ω resistance (10× more dangerous!)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="danger-box" style="margin-top: 20px;">
+                            <strong style="font-size: 1.2em;">🔥 Fire Hazards</strong>
+                            <ul style="margin-top: 15px; line-height: 2;">
+                                <li>Overloaded circuits generate excessive heat</li>
+                                <li>Damaged insulation can cause sparks</li>
+                                <li>Faulty appliances may overheat</li>
+                                <li>Can ignite nearby flammable materials</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3>✅ Safety Precautions</h3>
+                        <div class="info-box">
+                            <ul style="line-height: 2.2; font-size: 1.05em;">
+                                <li>✅ Turn off power before repairs</li>
+                                <li>✅ Keep water away from electricity</li>
+                                <li>✅ Use properly earthed appliances</li>
+                                <li>✅ Check cables regularly for damage</li>
+                                <li>✅ Use correct fuse ratings</li>
+                                <li>✅ Don't overload sockets</li>
+                                <li>❌ Never touch with wet hands</li>
+                                <li>❌ Never use damaged cables</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🏠 House Wiring System</h3>
+                    <table>
+                        <tr>
+                            <th>Wire</th>
+                            <th>Color</th>
+                            <th>Voltage</th>
+                            <th>Function</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Live (L)</strong></td>
+                            <td style="background: #8B4513; color: white;">Brown</td>
+                            <td>230V</td>
+                            <td>Provides electrical energy from supply</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Neutral (N)</strong></td>
+                            <td style="background: #0000CD; color: white;">Blue</td>
+                            <td>0V</td>
+                            <td>Completes circuit back to supply</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Earth (E)</strong></td>
+                            <td style="background: #228B22; color: white;">Green/Yellow</td>
+                            <td>0V</td>
+                            <td>Safety wire - prevents electric shock</td>
+                        </tr>
+                    </table>
+
+                    <div class="warning-box">
+                        <strong style="font-size: 1.2em;">⚠️ CRITICAL:</strong> The live wire is ALWAYS dangerous, even when a switch is turned off!
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🛡️ Safety Devices</h3>
+                    
+                    <div class="info-box">
+                        <h4 style="color: #667eea; font-size: 1.3em;">1. Fuse</h4>
+                        <p style="line-height: 1.8; margin: 10px 0;"><strong>How it works:</strong> Thin wire that melts when current exceeds safe level, breaking the circuit.</p>
+                        <p style="line-height: 1.8;"><strong>Formula:</strong> Choose fuse rating slightly higher than normal operating current</p>
+                        <div class="formula-box" style="margin: 15px 0;">
+                            I = P / V
+                            <div class="formula-explanation">
+                                <strong>I</strong> = Current needed (Amperes, A)<br>
+                                <strong>P</strong> = Power of appliance (Watts, W)<br>
+                                <strong>V</strong> = Voltage of supply (Volts, V)
+                            </div>
+                        </div>
+                        <p><strong>Common ratings:</strong> 3A, 5A, 13A</p>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <h4 style="color: #667eea; font-size: 1.3em;">2. Circuit Breaker</h4>
+                        <p style="line-height: 1.8;"><strong>Advantages over fuses:</strong></p>
+                        <ul style="line-height: 2; margin-top: 10px;">
+                            <li>Works faster than fuses</li>
+                            <li>Can be reset (no replacement needed)</li>
+                            <li>Uses electromagnetic switch</li>
+                            <li>More sensitive to current changes</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <h4 style="color: #667eea; font-size: 1.3em;">3. Earth Wire</h4>
+                        <p style="line-height: 1.8; margin: 10px 0;"><strong>Protection mechanism:</strong></p>
+                        <ul style="line-height: 2;">
+                            <li>Connects metal case to ground (0V)</li>
+                            <li>If live wire touches case, large current flows to earth</li>
+                            <li>This blows the fuse or trips circuit breaker immediately</li>
+                            <li>Prevents user from getting electric shock</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 20px;">
+                        <h4 style="color: #667eea; font-size: 1.3em;">4. Double Insulation</h4>
+                        <p style="line-height: 1.8;"><strong>For plastic-cased appliances:</strong></p>
+                        <ul style="line-height: 2; margin-top: 10px;">
+                            <li>Two layers of insulation material</li>
+                            <li>No metal case = no need for earth wire</li>
+                            <li>Symbol: Square within a square ⧈</li>
+                            <li>Examples: hair dryers, power tools, phone chargers</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3>🚨 Emergency Procedures</h3>
+                    
+                    <div class="danger-box">
+                        <h4 style="font-size: 1.3em; margin-bottom: 15px;">⚡ First Aid for Electric Shock</h4>
+                        <ol style="line-height: 2.2; font-size: 1.05em; margin-left: 20px;">
+                            <li><strong>DO NOT touch the person directly!</strong></li>
+                            <li><strong>Switch off the power supply</strong> immediately at the mains</li>
+                            <li>If you can't turn off power, use non-conductive object (wood, plastic) to move them away</li>
+                            <li>Call emergency services (999/112) immediately</li>
+                            <li>Check breathing and pulse</li>
+                            <li>If trained, perform CPR if necessary</li>
+                            <li>Keep person warm and calm until help arrives</li>
+                        </ol>
+                    </div>
+
+                    <div class="warning-box" style="margin-top: 20px;">
+                        <h4 style="font-size: 1.3em; margin-bottom: 15px;">🔥 If Electrical Fire Occurs</h4>
+                        <ul style="line-height: 2.2; font-size: 1.05em;">
+                            <li>Switch off power at mains if safe to do so</li>
+                            <li>Use CO₂ or powder fire extinguisher</li>
+                            <li><strong>NEVER use water on electrical fires!</strong></li>
+                            <li>Evacuate if fire spreads</li>
+                            <li>Call fire brigade (999/112)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div id="quiz" class="tab-content">
+                <h2 class="section-title">🎯 Test Your Knowledge</h2>
+
+                <div class="card">
+                    <h3>Electricity Quiz</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="quizProgress" style="width: 0%">Question 0 of 10</div>
+                    </div>
+                    <div id="quizContainer"></div>
+                    <div style="text-align: center; margin-top: 25px;">
+                        <button class="btn" onclick="startQuiz()" id="startBtn">Start Quiz</button>
+                        <button class="btn" onclick="checkAnswer()" id="checkBtn" style="display: none;">Check Answer</button>
+                        <button class="btn btn-secondary" onclick="nextQuestion()" id="nextBtn" style="display: none;">Next Question</button>
+                    </div>
+                    <div id="quizScore" style="display: none; text-align: center; margin-top: 25px; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 15px; color: white;">
+                        <h3 style="font-size: 2em; margin-bottom: 15px;">🎉 Quiz Complete!</h3>
+                        <p style="font-size: 2.5em; margin: 20px 0; font-weight: bold;">Score: <span id="finalScore"></span></p>
+                        <p style="font-size: 1.3em; margin-bottom: 25px;" id="gradeMessage"></p>
+                        <button class="btn" onclick="startQuiz()" style="background: white; color: #667eea;">Retry Quiz</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function openTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            const navTabs = document.querySelectorAll('.nav-tab');
+            
+            tabs.forEach(tab => tab.classList.remove('active'));
+            navTabs.forEach(nav => nav.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+
+        let lightOn = false;
+        function toggleLight() {
+            lightOn = !lightOn;
+            const bulb = document.getElementById('bulb');
+            const btn = document.getElementById('switchBtn');
+            const status = document.getElementById('circuitStatus');
+            const current = document.getElementById('currentStatus');
+            
+            if (lightOn) {
+                bulb.classList.add('on');
+                btn.classList.add('on');
+                btn.textContent = 'ON';
+                status.textContent = 'Closed';
+                status.style.color = '#28a745';
+                current.textContent = 'Yes';
+                current.style.color = '#28a745';
+            } else {
+                bulb.classList.remove('on');
+                btn.classList.remove('on');
+                btn.textContent = 'OFF';
+                status.textContent = 'Open';
+                status.style.color = '#dc3545';
+                current.textContent = 'No';
+                current.style.color = '#dc3545';
+            }
+        }
+
+        function updateCalculator() {
+            const calcType = document.getElementById('calcType').value;
+            const container = document.getElementById('calculatorInputs');
+            
+            let html = '';
+            
+            switch(calcType) {
+                case 'current':
+                    html = `
+                        <div class="input-group">
+                            <label>Charge (Q) in Coulombs (C):</label>
+                            <input type="number" id="input1" step="any" placeholder="Enter charge">
+                        </div>
+                        <div class="input-group">
+                            <label>Time (t) in seconds (s):</label>
+                            <input type="number" id="input2" step="any" placeholder="Enter time">
+                        </div>
+                    `;
+                    break;
+                case 'charge':
+                    html = `
+                        <div class="input-group">
+                            <label>Current (I) in Amperes (A):</label>
+                            <input type="number" id="input1" step="any" placeholder="Enter current">
+                        </div>
+                        <div class="input-group">
+                            <label>Time (t) in seconds (s):</label>
+                            <input type="number" id="input2" step="any" placeholder="Enter time">
+                        </div>
+                    `;
+                    break;
+                case 'voltage':
+                    html = `
+                        <div class="input-group">
+                            <label>Current (I) in Amperes (A):</label>
+                            <input type="number" id="input1" step="any" placeholder="Enter current">
+                        </div>
+                        <div class="input-group">
+                            <label>Resistance (R) in Ohms (Ω):</label>
+                            <input type="number" id="input2" step="any" placeholder="Enter resistance">
+                        </div>
+                    `;
+                    break;
+                case 'resistance':
+                    html = `
+                        <div class="input-group">
+                            <label>Voltage (V) in Volts (V):</label>
+                            <input type="number" id="input1" step="any" placeholder="Enter voltage">
+                        </div>
+                        <div class="input-group">
+                            <label>Current (I) in Amperes (A):</label>
+                            <input type="number" id="input2" step="any" placeholder="Enter current">
+                        </div>
+                    `;
+                    break;
+                case 'power1':
+                    html = `
+                        <div class="input-group">
+                            <label>Current (I) in Amperes (A):</label>
+                            <input type="number" id="input1" step="any" placeholder="Enter current">
+                        </div>
+                        <div class="input-group">
+                            <label>Voltage (V) in Volts (V):</label>
+                            <input type="number" id="input2" step="any" placeholder="Enter voltage">
+                        </div>
+                    `;
+                    break;
+                case 'power2':
+                    html = `
+                        <div class="input-group">
+                            <label>Current (I) in Amperes (A):</label>
+                            <input type="number" id="input1" step="any" placeholder="Enter current">
+                        </div>
+                        <div class="input-group">
+                            <label>Resistance (R) in Ohms (Ω):</label>
+                            <input type="number" id="input2" step="any" placeholder="Enter resistance">
+                        </div>
+                    `;
+                    break;
+                case 'power3':
+                    html = `
+                        <div class="input-group">
+                            <label>Voltage (V) in Volts (V):</label>
+                            <input type="number" id="input1" step="any" placeholder="Enter voltage">
+                        </div>
+                        <div class="input-group">
+                            <label>Resistance (R) in Ohms (Ω):</label>
+                            <input type="number" id="input2" step="any" placeholder="Enter resistance">
+                        </div>
+                    `;
+                    break;
+                case 'energy':
+                    html = `
+                        <div class="input-group">
+                            <label>Power (P) in Watts (W):</label>
+                            <input type="number" id="input1" step="any" placeholder="Enter power">
+                        </div>
+                        <div class="input-group">
+                            <label>Time (t) in seconds (s):</label>
+                            <input type="number" id="input2" step="any" placeholder="Enter time">
+                        </div>
+                    `;
+                    break;
+            }
+            
+            container.innerHTML = html;
+        }
+
+        function performCalculation() {
+            const calcType = document.getElementById('calcType').value;
+            const input1 = parseFloat(document.getElementById('input1').value);
+            const input2 = parseFloat(document.getElementById('input2').value);
+            const resultDiv = document.getElementById('calculationResult');
+            
+            if (isNaN(input1) || isNaN(input2)) {
+                resultDiv.innerHTML = '<h3 style="color: #dc3545;">⚠️ Error</h3><p>Please enter valid numbers!</p>';
+                resultDiv.classList.add('show');
+                return;
+            }
+            
+            let result, formula, explanation;
+            
+            switch(calcType) {
+                case 'current':
+                    result = input1 / input2;
+                    formula = `I = Q / t = ${input1} / ${input2}`;
+                    explanation = `The current is <strong>${result.toFixed(3)} Amperes</strong>`;
+                    break;
+                case 'charge':
+                    result = input1 * input2;
+                    formula = `Q = I × t = ${input1} × ${input2}`;
+                    explanation = `The charge is <strong>${result.toFixed(3)} Coulombs</strong>`;
+                    break;
+                case 'voltage':
+                    result = input1 * input2;
+                    formula = `V = I × R = ${input1} × ${input2}`;
+                    explanation = `The voltage is <strong>${result.toFixed(3)} Volts</strong>`;
+                    break;
+                case 'resistance':
+                    result = input1 / input2;
+                    formula = `R = V / I = ${input1} / ${input2}`;
+                    explanation = `The resistance is <strong>${result.toFixed(3)} Ohms</strong>`;
+                    break;
+                case 'power1':
+                    result = input1 * input2;
+                    formula = `P = I × V = ${input1} × ${input2}`;
+                    explanation = `The power is <strong>${result.toFixed(3)} Watts</strong>`;
+                    break;
+                case 'power2':
+                    result = input1 * input1 * input2;
+                    formula = `P = I² × R = ${input1}² × ${input2}`;
+                    explanation = `The power is <strong>${result.toFixed(3)} Watts</strong>`;
+                    break;
+                case 'power3':
+                    result = (input1 * input1) / input2;
+                    formula = `P = V² / R = ${input1}² / ${input2}`;
+                    explanation = `The power is <strong>${result.toFixed(3)} Watts</strong>`;
+                    break;
+                case 'energy':
+                    result = input1 * input2;
+                    formula = `E = P × t = ${input1} × ${input2}`;
+                    const kWh = result / 3600000;
+                    explanation = `The energy is <strong>${result.toFixed(3)} Joules</strong><br>Or <strong>${kWh.toFixed(6)} kWh</strong>`;
+                    break;
+            }
+            
+            resultDiv.innerHTML = `
+                <h3>✅ Result</h3>
+                <p><strong>Formula:</strong> ${formula}</p>
+                <p style="font-size: 1.2em; margin-top: 15px;">${explanation}</p>
+            `;
+            resultDiv.classList.add('show');
+        }
+
+        function clearCalculation() {
+            document.getElementById('input1').value = '';
+            document.getElementById('input2').value = '';
+            document.getElementById('calculationResult').classList.remove('show');
+        }
+
+        function createResistorInputs() {
+            const num = parseInt(document.getElementById('numResistors').value);
+            const container = document.getElementById('resistorInputs');
+            
+            let html = '';
+            for (let i = 1; i <= num; i++) {
+                html += `
+                    <div class="input-group">
+                        <label>Resistor ${i} (Ω):</label>
+                        <input type="number" id="resistor${i}" step="any" placeholder="Enter resistance value">
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
+        function calculateCircuit() {
+            const circuitType = document.getElementById('circuitType').value;
+            const num = parseInt(document.getElementById('numResistors').value);
+            const resultDiv = document.getElementById('circuitResult');
+            
+            let resistors = [];
+            for (let i = 1; i <= num; i++) {
+                const r = parseFloat(document.getElementById(`resistor${i}`).value);
+                if (isNaN(r)) {
+                    resultDiv.innerHTML = '<h3 style="color: #dc3545;">⚠️ Error</h3><p>Please enter all resistor values!</p>';
+                    resultDiv.classList.add('show');
+                    return;
+                }
+                resistors.push(r);
+            }
+            
+            let totalR, formula, steps;
+            
+            if (circuitType === 'series') {
+                totalR = resistors.reduce((sum, r) => sum + r, 0);
+                formula = `R<sub>total</sub> = ${resistors.join(' + ')}`;
+                steps = `<p><strong>Calculation:</strong><br>${formula} = <strong>${totalR.toFixed(3)} Ω</strong></p>`;
+            } else {
+                const reciprocalSum = resistors.reduce((sum, r) => sum + 1/r, 0);
+                totalR = 1 / reciprocalSum;
+                formula = `1/R<sub>total</sub> = ${resistors.map(r => `1/${r}`).join(' + ')}`;
+                steps = `<p><strong>Calculation:</strong><br>${formula}<br>1/R<sub>total</sub> = ${reciprocalSum.toFixed(6)}<br>R<sub>total</sub> = <strong>${totalR.toFixed(3)} Ω</strong></p>`;
+            }
+            
+            resultDiv.innerHTML = `
+                <h3>✅ Result</h3>
+                <p><strong>Circuit Type:</strong> ${circuitType.charAt(0).toUpperCase() + circuitType.slice(1)}</p>
+                ${steps}
+                <p style="margin-top: 15px; padding: 15px; background: #e7f3ff; border-radius: 8px;">
+                    ${circuitType === 'series' ? 
+                    'In series circuits, total resistance equals the sum of individual resistances.' : 
+                    'In parallel circuits, total resistance is less than the smallest individual resistor.'}
+                </p>
+            `;
+            resultDiv.classList.add('show');
+        }
+
+        function updatePowerViz() {
+            const power = parseFloat(document.getElementById('applianceSelect').value);
+            const hours = parseFloat(document.getElementById('hoursSlider').value);
+            
+            document.getElementById('hoursDisplay').textContent = `${hours} hours`;
+            
+            const energyKWh = (power * hours) / 1000;
+            const energyJ = energyKWh * 3.6e6;
+            const costPerKWh = 0.15;
+            const costPerUse = energyKWh * costPerKWh;
+            
+            const dailyEnergy = energyKWh;
+            const dailyCost = costPerUse;
+            
+            const monthlyEnergy = dailyEnergy * 30;
+            const monthlyCost = dailyCost * 30;
+            
+            const yearlyEnergy = dailyEnergy * 365;
+            const yearlyCost = dailyCost * 365;
+            
+            const co2PerYear = yearlyEnergy * 0.233;
+            
+            document.getElementById('energyUsed').textContent = `${energyKWh.toFixed(3)} kWh`;
+            document.getElementById('energyJoules').textContent = `${energyJ.toExponential(2)} J`;
+            document.getElementById('energyCostDisplay').textContent = `£${costPerUse.toFixed(4)}`;
+            
+            document.getElementById('dailyCost').textContent = `£${dailyCost.toFixed(3)}`;
+            document.getElementById('dailyEnergy').textContent = `${dailyEnergy.toFixed(2)} kWh/day`;
+            
+            document.getElementById('monthlyCost').textContent = `£${monthlyCost.toFixed(2)}`;
+            document.getElementById('monthlyEnergy').textContent = `${monthlyEnergy.toFixed(1)} kWh/month`;
+            
+            document.getElementById('yearlyCost').textContent = `£${yearlyCost.toFixed(2)}`;
+            document.getElementById('yearlyEnergy').textContent = `${yearlyEnergy.toFixed(1)} kWh/year`;
+            
+            document.getElementById('co2Emissions').textContent = `${co2PerYear.toFixed(0)} kg`;
+        }
+
+        function updateThermistor() {
+            const temp = parseFloat(document.getElementById('tempSlider').value);
+            document.getElementById('tempDisplay').textContent = `Temperature: ${temp}°C`;
+            
+            const R0 = 10000;
+            const B = 3950;
+            const T0 = 298.15;
+            const T = temp + 273.15;
+            
+            const R = R0 * Math.exp(B * (1/T - 1/T0));
+            document.getElementById('thermistorRes').textContent = `${R.toFixed(0)} Ω`;
+        }
+
+        function updateLDR() {
+            const light = parseFloat(document.getElementById('lightSlider').value);
+            document.getElementById('lightDisplay').textContent = `Light Intensity: ${light}%`;
+            
+            const maxR = 100000;
+            const minR = 100;
+            const R = maxR - (maxR - minR) * (light / 100);
+            
+            document.getElementById('ldrRes').textContent = `${R.toFixed(0)} Ω`;
+        }
+
+        function showComponentInfo(component) {
+            const infoDiv = document.getElementById('componentInfo');
+            let info = '';
+            
+            switch(component) {
+                case 'resistor':
+                    info = `
+                        <h3>📶 Fixed Resistor</h3>
+                        <p style="font-size: 1.1em; line-height: 1.8;"><strong>Function:</strong> Provides constant resistance to limit current flow</p>
+                        <div class="info-box" style="margin-top: 15px;">
+                            <strong>Characteristics:</strong>
+                            <ul style="line-height: 2;">
+                                <li>Constant resistance value (doesn't change)</li>
+                                <li>Follows Ohm's Law: V = I × R</li>
+                                <li>Converts electrical energy to thermal energy</li>
+                                <li>Symbol: Rectangle (—▭—)</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <strong>Uses:</strong> Current limiting, voltage division, pull-up/down resistors
+                        </div>
+                    `;
+                    break;
+                case 'variable':
+                    info = `
+                        <h3>🎚️ Variable Resistor (Rheostat)</h3>
+                        <p style="font-size: 1.1em; line-height: 1.8;"><strong>Function:</strong> Resistance can be adjusted manually</p>
+                        <div class="info-box" style="margin-top: 15px;">
+                            <strong>Characteristics:</strong>
+                            <ul style="line-height: 2;">
+                                <li>Adjustable resistance value</li>
+                                <li>Can control current in a circuit</li>
+                                <li>Used in potential dividers</li>
+                                <li>Symbol: Rectangle with arrow (—▭←—)</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <strong>Uses:</strong> Volume controls, dimmer switches, speed controllers, temperature controls
+                        </div>
+                    `;
+                    break;
+                case 'thermistor':
+                    info = `
+                        <h3>🌡️ Thermistor (NTC)</h3>
+                        <p style="font-size: 1.1em; line-height: 1.8;"><strong>Function:</strong> Resistance DECREASES as temperature INCREASES</p>
+                        <div class="info-box" style="margin-top: 15px;">
+                            <strong>Characteristics:</strong>
+                            <ul style="line-height: 2;">
+                                <li>NTC = Negative Temperature Coefficient</li>
+                                <li>Higher temperature → Lower resistance</li>
+                                <li>Non-ohmic conductor</li>
+                                <li>Very sensitive to temperature changes</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <strong>Applications:</strong> Temperature sensors, fire alarms, thermostats, temperature compensation circuits
+                        </div>
+                    `;
+                    break;
+                case 'ldr':
+                    info = `
+                        <h3>💡 Light Dependent Resistor (LDR)</h3>
+                        <p style="font-size: 1.1em; line-height: 1.8;"><strong>Function:</strong> Resistance DECREASES as light intensity INCREASES</p>
+                        <div class="info-box" style="margin-top: 15px;">
+                            <strong>Characteristics:</strong>
+                            <ul style="line-height: 2;">
+                                <li>High resistance in darkness (~1MΩ)</li>
+                                <li>Low resistance in bright light (~100Ω)</li>
+                                <li>Non-ohmic conductor</li>
+                                <li>Response time: few milliseconds</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <strong>Applications:</strong> Automatic street lights, light meters, burglar alarms, camera exposure controls
+                        </div>
+                    `;
+                    break;
+                case 'diode':
+                    info = `
+                        <h3>▶️ Semiconductor Diode</h3>
+                        <p style="font-size: 1.1em; line-height: 1.8;"><strong>Function:</strong> Allows current to flow in ONE direction only</p>
+                        <div class="info-box" style="margin-top: 15px;">
+                            <strong>Characteristics:</strong>
+                            <ul style="line-height: 2;">
+                                <li><strong>Forward-biased:</strong> Low resistance, current flows freely</li>
+                                <li><strong>Reverse-biased:</strong> Very high resistance, no current flows</li>
+                                <li>Non-ohmic conductor</li>
+                                <li>Symbol: Triangle with line (—▷|—)</li>
+                            </ul>
+                        </div>
+                        <div class="info-box">
+                            <strong>Applications:</strong> Rectification (converting AC to DC), protection circuits, voltage regulation
+                        </div>
+                    `;
+                    break;
+                case 'led':
+                    info = `
+                        <h3>💡 Light Emitting Diode (LED)</h3>
+                        <p style="font-size: 1.1em; line-height: 1.8;"><strong>Function:</strong> Emits light when current flows through it (forward-biased)</p>
+                        <div class="info-box" style="margin-top: 15px;">
+                            <strong>Characteristics:</strong>
+                            <ul style="line-height: 2;">
+                                <li>Only works in forward bias direction</li>
+                                <li>Very low power consumption (~10-20mA)</li>
+                                <li>Long lifespan (50,000+ hours)</li>
+                                <li>Available in many colors (red, green, blue, white, etc.)</li>
+                                <li>Requires series resistor to limit current</li>
+                            </ul>
+                        </div>
+                        <div class="warning-box">
+                            <strong>⚠️ Important:</strong> Always use a resistor in series with LED to prevent damage from excess current!
+                        </div>
+                        <div class="info-box">
+                            <strong>Applications:</strong> Indicator lights, displays, traffic lights, modern lighting, screens
+                        </div>
+                    `;
+                    break;
+            }
+            
+            infoDiv.innerHTML = info;
+            infoDiv.classList.add('show');
+        }
+
+        const quizQuestions = [
+            {
+                question: "What is the SI unit of electric current?",
+                options: ["Volt (V)", "Ampere (A)", "Ohm (Ω)", "Coulomb (C)"],
+                correct: 1,
+                explanation: "The Ampere (A) is the SI unit of electric current. It represents the rate of flow of charge (1A = 1C/s)."
+            },
+            {
+                question: "According to Ohm's Law, if voltage increases and resistance stays constant, what happens to current?",
+                options: ["Decreases", "Stays the same", "Increases", "Becomes zero"],
+                correct: 2,
+                explanation: "From V = I × R, if V increases and R is constant, I must increase proportionally (I = V/R)."
+            },
+            {
+                question: "In a series circuit with three resistors (10Ω, 20Ω, 30Ω), what is the total resistance?",
+                options: ["5Ω", "20Ω", "60Ω", "200Ω"],
+                correct: 2,
+                explanation: "In series circuits, resistances add directly: R_total = 10 + 20 + 30 = 60Ω"
+            },
+            {
+                question: "What happens to the resistance of an LDR when light intensity increases?",
+                options: ["Increases", "Decreases", "Stays the same", "Becomes infinite"],
+                correct: 1,
+                explanation: "LDR (Light Dependent Resistor) has lower resistance in bright light and higher resistance in darkness."
+            },
+            {
+                question: "Which wire in a house electrical system is the safety wire?",
+                options: ["Live (brown)", "Neutral (blue)", "Earth (green/yellow)", "All of them"],
+                correct: 2,
+                explanation: "The earth wire (green/yellow) provides a safety path for fault currents to ground, preventing electric shock."
+            },
+            {
+                question: "What is the formula for electrical power in terms of current and voltage?",
+                options: ["P = I / V", "P = I + V", "P = I × V", "P = V / I"],
+                correct: 2,
+                explanation: "Power equals current times voltage: P = I × V. Also: P = I²R and P = V²/R"
+            },
+            {
+                question: "How much energy is in 1 kilowatt-hour (kWh)?",
+                options: ["3.6 J", "3600 J", "3.6 × 10⁶ J", "3.6 × 10⁹ J"],
+                correct: 2,
+                explanation: "1 kWh = 1000W × 3600s = 3,600,000 J = 3.6 × 10⁶ J = 3.6 MJ"
+            },
+            {
+                question: "In a parallel circuit, what is the same across all branches?",
+                options: ["Current", "Resistance", "Voltage", "Power"],
+                correct: 2,
+                explanation: "In parallel circuits, the voltage (potential difference) is the same across all branches."
+            },
+            {
+                question: "What type of current flows continuously in one direction only?",
+                options: ["Alternating current (AC)", "Direct current (DC)", "Both AC and DC", "Neither"],
+                correct: 1,
+                explanation: "Direct current (DC) flows continuously in one direction. AC regularly changes direction."
+            },
+            {
+                question: "What happens to the resistance of a thermistor (NTC) when temperature increases?",
+                options: ["Increases", "Decreases", "Stays the same", "Becomes zero"],
+                correct: 1,
+                explanation: "NTC thermistor = Negative Temperature Coefficient. Resistance DECREASES as temperature INCREASES."
+            }
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let selectedAnswer = null;
+
+        function startQuiz() {
+            currentQuestion = 0;
+            score = 0;
+            selectedAnswer = null;
+            document.getElementById('quizScore').style.display = 'none';
+            document.getElementById('startBtn').style.display = 'none';
+            showQuestion();
+        }
+
+        function showQuestion() {
+            if (currentQuestion >= quizQuestions.length) {
+                showResults();
+                return;
+            }
+
+            selectedAnswer = null;
+            const q = quizQuestions[currentQuestion];
+            const container = document.getElementById('quizContainer');
+            
+            let html = `
+                <div class="card" style="background: white;">
+                    <h4 style="color: #667eea; margin-bottom: 20px; font-size: 1.3em;">Question ${currentQuestion + 1} of ${quizQuestions.length}</h4>
+                    <p style="font-size: 1.2em; margin-bottom: 25px; line-height: 1.6;"><strong>${q.question}</strong></p>
+            `;
+            
+            q.options.forEach((option, index) => {
+                html += `
+                    <div class="quiz-option" onclick="selectAnswer(${index})">
+                        <strong>${String.fromCharCode(65 + index)}.</strong> ${option}
+                    </div>
+                `;
+            });
+            
+            html += `</div>`;
+            container.innerHTML = html;
+            
+            document.getElementById('checkBtn').style.display = 'inline-block';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            updateProgress();
+        }
+
+        function selectAnswer(index) {
+            selectedAnswer = index;
+            const options = document.querySelectorAll('.quiz-option');
+            options.forEach((opt, idx) => {
+                opt.classList.remove('selected');
+                if (idx === index) {
+                    opt.classList.add('selected');
+                }
+            });
+        }
+
+        function checkAnswer() {
+            if (selectedAnswer === null) {
+                alert('Please select an answer first!');
+                return;
+            }
+
+            const q = quizQuestions[currentQuestion];
+            const options = document.querySelectorAll('.quiz-option');
+            
+            options.forEach((opt, idx) => {
+                opt.style.pointerEvents = 'none';
+                if (idx === q.correct) {
+                    opt.classList.add('correct');
+                }
+                if (idx === selectedAnswer && selectedAnswer !== q.correct) {
+                    opt.classList.add('incorrect');
+                }
+            });
+            
+            if (selectedAnswer === q.correct) {
+                score++;
+            }
+            
+            const explanation = document.createElement('div');
+            explanation.className = 'info-box';
+            explanation.style.marginTop = '25px';
+            explanation.innerHTML = `<strong>💡 Explanation:</strong><br><p style="margin-top: 10px; line-height: 1.8;">${q.explanation}</p>`;
+            document.querySelector('#quizContainer .card').appendChild(explanation);
+            
+            document.getElementById('checkBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'inline-block';
+        }
+
+        function nextQuestion() {
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function updateProgress() {
+            const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+            const progressBar = document.getElementById('quizProgress');
+            progressBar.style.width = progress + '%';
+            progressBar.textContent = `Question ${currentQuestion + 1} of ${quizQuestions.length}`;
+        }
+
+        function showResults() {
+            document.getElementById('quizContainer').innerHTML = '';
+            document.getElementById('quizScore').style.display = 'block';
+            document.getElementById('checkBtn').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+            
+            const percentage = (score / quizQuestions.length) * 100;
+            let grade = '';
+            
+            if (percentage >= 90) {
+                grade = '🌟 Outstanding! You have mastered electricity!';
+            } else if (percentage >= 80) {
+                grade = '🎉 Excellent work! Great understanding!';
+            } else if (percentage >= 70) {
+                grade = '👍 Good job! You're doing well!';
+            } else if (percentage >= 50) {
+                grade = '📚 Keep practicing! You're getting there!';
+            } else {
+                grade = '💪 More study needed. Don't give up!';
+            }
+            
+            document.getElementById('finalScore').textContent = `${score}/${quizQuestions.length} (${percentage.toFixed(0)}%)`;
+            document.getElementById('gradeMessage').textContent = grade;
+            
+            const progressBar = document.getElementById('quizProgress');
+            progressBar.style.width = '100%';
+            progressBar.textContent = 'Complete!';
+        }
+
+        window.onload = function() {
+            updateCalculator();
+            createResistorInputs();
+            updatePowerViz();
+            updateThermistor();
+            updateLDR();
+        };
+    </script>
+</body>
+</html>
